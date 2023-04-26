@@ -1,0 +1,23 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - build
+      - "--network=cloudbuild"
+      - "--tag=europe-west2-docker.pkg.dev/thg-machine-learning-poc/docker/simple_api_aarjav"
+      - "--file=./Dockerfile"
+      - .
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'europe-west2-docker.pkg.dev/thg-machine-learning-poc/docker/simple_api_aarjav']
+  - name: "gcr.io/cloud-builders/gcloud"
+    args:
+      - "run"
+      - "deploy"
+      - "aarjav-grpc-test"
+      - "--image=europe-west2-docker.pkg.dev/thg-machine-learning-poc/docker/simple_api_aarjav"
+      - "--platform=managed"
+      - "--region=europe-west2"
+      - "--port=8080"
+      - "--use-http2"
+
+
+

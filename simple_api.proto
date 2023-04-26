@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package simple_api;
+
+service SimpleApi {
+    rpc Greet (GreetRequest) returns (GreetResponse);
+}
+
+message GreetRequest {
+    string name = 1;
+}
+
+message GreetResponse {
+    string greeting = 1;
+}
+
+
+service SquareRootApi {
+    rpc Sqrt (SqrtNumber) returns (SqrtResponse);
+}
+
+message SqrtNumber {
+    float number = 1;
+}
+
+message SqrtResponse {
+    float number = 1;
+}
